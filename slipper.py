@@ -46,18 +46,18 @@ def default_write(write_file):
         is_rev = read.is_reverse
 
         if cigar[-1][0] == 4:
-            p3 = True
+            strand_end = "clip3"
             sfc_idx = cigar[-1][1] # number of terminal soft clipped bases
             seq = read.query_sequence[-sfc_idx:]
 
-            write_file.write(f"{flags}\t{p3}\t{is_rev}\t{sfc_idx}\t{seq}\n")
+            write_file.write(f"{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
 
-        elif cigar[0][0] == 4:
-            p3 = False
+        if cigar[0][0] == 4:
+            strand_end = "clip5"
             sfc_idx = cigar[0][1] # number of terminal soft clipped bases
             seq = read.query_sequence[sfc_idx:]
 
-            write_file.write(f"{flags}\t{p3}\t{is_rev}\t{sfc_idx}\t{seq}\n")
+            write_file.write(f"{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
 
         else:
             pass
@@ -72,7 +72,6 @@ def plain_write(out_name: str):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    print(args.input, args.output, args.gzip)
 
     bamfile = pysam.AlignmentFile(args.input, "rb")
 
