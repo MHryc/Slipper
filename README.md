@@ -1,4 +1,11 @@
-# Slipperusage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c COMPRESS]
+# Slipper
+
+## Dependencies
+
+pysam library
+
+```
+usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c COMPRESS]
 
 Extract soft clipped nucleotides from BAM
 
@@ -13,3 +20,4 @@ options:
                         Gzip compression level (default=1)
 
 M.Hryc (2025)
+```

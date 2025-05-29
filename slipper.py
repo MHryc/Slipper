@@ -38,7 +38,9 @@ Gzip compression level (default=1)'''
 # write functions
 
 def default_write(write_file):
-    write_file.write(f"flags\tis_3\'\tis_reverse\tsoft_clip_index\tclipped_sequence\n")
+    write_file.write(f"readID\tflags\tclipEnd\tisReverse\tsoftClipLen\tclipSeq\n")
+
+    id = 0
 
     for read in bamfile.fetch():
         cigar = read.cigartuples
@@ -50,17 +52,19 @@ def default_write(write_file):
             sfc_idx = cigar[-1][1] # number of terminal soft clipped bases
             seq = read.query_sequence[-sfc_idx:]
 
-            write_file.write(f"{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
+            write_file.write(f"{id}\t{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
 
         if cigar[0][0] == 4:
             strand_end = "clip5"
             sfc_idx = cigar[0][1] # number of terminal soft clipped bases
             seq = read.query_sequence[sfc_idx:]
 
-            write_file.write(f"{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
+            write_file.write(f"{id}\t{flags}\t{strand_end}\t{is_rev}\t{sfc_idx}\t{seq}\n")
 
         else:
             pass
+
+        id += 1
 
 def gzip_write(out_name: str, c_level: int):
     with gzip.open(out_name, "wt", compresslevel=c_level) as f:
