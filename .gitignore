@@ -3,6 +3,8 @@
 *.tsv.gz
 *.bam*
 *.pl
+*.txt
+*.txt.gz
 rust/
 data/
 
