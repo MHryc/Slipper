@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import argparse, sys, io, gzip
+import argparse, io, gzip
 import pysam
 
 #
