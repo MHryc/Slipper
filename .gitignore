@@ -1,5 +1,6 @@
 # personal
 
+*.tsv
 *.tsv.gz
 *.bam*
 *.pl
