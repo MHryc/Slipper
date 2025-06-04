@@ -9,7 +9,7 @@
 ```
 usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c COMPRESS] [-s]
 
-Extract soft clipped nucleotides from BAM
+Extract soft clipped bases from BAM. For output description see README.md
 
 options:
   -h, --help            show this help message and exit
