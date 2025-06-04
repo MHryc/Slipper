@@ -2,7 +2,9 @@
 
 ## Dependencies
 
-pysam library
+* pysam
+
+# Usage
 
 ```
 usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c COMPRESS] [-s]
@@ -27,7 +29,6 @@ M.Hryc (2025)
 
 Output tsv has 7 columns:
 
-| --- | --- |
 | name | description |
 | --- | --- |
 | QNAME | Query template NAME |
@@ -37,7 +38,6 @@ Output tsv has 7 columns:
 | CLIP5 | 5' soft clipped SEQuence (NA if not present) |
 | CLIP3 | 3' soft clipped SEQuence (NA if not present) |
 | SEQ | segment SEQuence (read sequence) |
-| --- | --- |
 
 ## Example output
 
