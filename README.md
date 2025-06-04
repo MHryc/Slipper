@@ -29,15 +29,15 @@ M.Hryc (2025)
 
 Output tsv has 7 columns:
 
-| name | description |
-| --- | --- |
-| QNAME | Query template NAME |
-| FLAGS | bitwise FLAG both as int and 12-bit |
-| RNAME | Reference sequence NAME |
-| POS | 0-based leftmost mapping POSition |
-| CLIP5 | 5' soft clipped SEQuence (NA if not present) |
-| CLIP3 | 3' soft clipped SEQuence (NA if not present) |
-| SEQ | segment SEQuence (read sequence) |
+| name  | description                                   |
+| ---   | ---                                           |
+| QNAME | Query template NAME                           |
+| FLAGS | bitwise FLAG both as int and 12-bit           |
+| RNAME | Reference sequence NAME                       |
+| POS   | 0-based leftmost mapping POSition             |
+| CLIP5 | 5' soft clipped SEQuence (NA if not present)  |
+| CLIP3 | 3' soft clipped SEQuence (NA if not present)  |
+| SEQ   | segment SEQuence (read sequence)              |
 
 ## Example output
 

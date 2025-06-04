@@ -9,7 +9,9 @@ import pysam
 
 parser = argparse.ArgumentParser(
     prog="Slipper",
-    description="Extract soft clipped nucleotides from BAM",
+    description='''
+Extract soft clipped bases from BAM. For output description see README.md
+''',
     epilog="M.Hryc (2025)"
 )
 parser.add_argument(
