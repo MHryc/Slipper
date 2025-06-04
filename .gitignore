@@ -1,5 +1,7 @@
 # personal
 
+example.sh
+
 *.tsv
 *.tsv.gz
 *.bam*
