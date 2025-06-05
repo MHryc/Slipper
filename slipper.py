@@ -2,6 +2,7 @@
 
 import argparse, io, gzip
 import pysam
+from dataclasses import dataclass, astuple
 
 #
 # CLI argument parsing
@@ -35,10 +36,10 @@ parser.add_argument(
 Output to gzip compressed file'''
 )
 parser.add_argument(
-    "-c", "--compress",
+    "-c", "--compress", metavar="LEVEL",
     required=False, default=1, type=int,
     help='''
-Gzip compression level (default=1)'''
+Gzip compression level (default=2)'''
 )
 parser.add_argument(
     "-s", "--with-sequence",
@@ -47,6 +48,21 @@ parser.add_argument(
 Store the whole read sequence (SEQ) in the last column. Default is off (fill
 with "NA")'''
 )
+
+#
+# TSV line dataclass
+#
+
+@dataclass
+class TsvLine:
+    QNAME: str
+    FLAGS: str
+    RNAME: str
+    POS: str
+    CLIP5: str
+    CLIP3: str
+    CLIP3: str
+    SEQ: str
 
 #
 # File writing functions
@@ -71,38 +87,23 @@ def basic_write(write_file: str, seq_switch: bool) -> None:
 
     for read in bamfile.fetch():
 
-        # initialize dictionary with row values, all values must be strings
-        r_dict = {
-            "QNAME": read.query_name,
-            "FLAGS": f"{read.flag}:{read.flag:012b}",
-            "RNAME": read.reference_name,
-            "POS": str(read.reference_start),
-            "CLIP5": "NA",
-            "CLIP3": "NA",
-            "SEQ": "NA"
-        }
-
         # get CIGAR string in tuple format
         # (4, 7) is the same as 7S
         cigar = read.cigartuples
 
-        # get whole read sequence if arg switch is on
-        if seq_switch:
-            r_dict["SEQ"] = read.query_sequence
+        # initialize dataclass with row values, all values must be strings
+        line = TsvLine(
+            read.query_name,
+            f"{read.flag}:{read.flag:012b}",
+            read.reference_name,
+            str(read.reference_start),
+            read.query_sequence[:cigar[0][1]] if cigar[0][0] == 4 else "NA",
+            read.query_sequence[:cigar[-1][1]] if cigar[-1][0] == 4 else "NA",
+            read.query_sequence if seq_switch else "NA"
+        )
 
-        # get 5' clip sequence
-        if cigar[0][0] == 4:
-            r_dict["CLIP5"] = read.query_sequence[:cigar[0][1]]
-
-        # get 3' clip sequence
-        if cigar[-1][0] == 4:
-            r_dict["CLIP3"] = read.query_sequence[-cigar[-1][1]:]
-
-        else:
-            pass
-        
         # write row into the output tsv file
-        write_file.write('\t'.join(r_dict[k] for k in r_dict) + '\n')
+        write_file.write('\t'.join(astuple(line)) + '\n')
 
 def plain_write(out_name: str, seq_switch: bool) -> None:
     """

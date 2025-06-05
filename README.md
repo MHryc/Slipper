@@ -1,5 +1,7 @@
 # Slipper
 
+Soft-clipper, script for extracting soft clipped bases from BAM input.
+
 ## Dependencies
 
 * pysam
@@ -7,7 +9,7 @@
 # Usage
 
 ```
-usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c COMPRESS] [-s]
+usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c LEVEL] [-s]
 
 Extract soft clipped bases from BAM. For output description see README.md
 
@@ -18,8 +20,8 @@ options:
   -o OUTPUT, --output OUTPUT
                         Path to the output file (without file extensions)
   -g, --gzip            Output to gzip compressed file
-  -c COMPRESS, --compress COMPRESS
-                        Gzip compression level (default=1)
+  -c LEVEL, --compress LEVEL
+                        Gzip compression level (default=2)
   -s, --with-sequence   Store the whole read sequence (SEQ) in the last column. Default is off (fill with "NA")
 
 M.Hryc (2025)
