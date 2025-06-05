@@ -55,7 +55,8 @@ with "NA")'''
 def basic_write(write_file: str, seq_switch: bool) -> None:
     """
     Basic function for writing the output tsv file, it's used for: buffered
-    plain text tsv writing, gzip compressed tsv writing.
+    plain text tsv writing and gzip compressed tsv writing within plain_write()
+    and gzip_write().
 
     Args:
         write_file (str): name of the output file
