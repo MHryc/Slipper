@@ -61,7 +61,6 @@ class TsvLine:
     POS: str
     CLIP5: str
     CLIP3: str
-    CLIP3: str
     SEQ: str
 
 #
