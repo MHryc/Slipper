@@ -58,7 +58,7 @@ class TsvLine:
     QNAME: str
     FLAGS: str
     RNAME: str
-    POS: str
+    POS: int
     CLIP5: str
     CLIP3: str
     SEQ: str
