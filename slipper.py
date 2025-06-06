@@ -55,10 +55,13 @@ with "NA")'''
 
 @dataclass
 class TsvLine:
+    '''
+    Each field needs to be a str, because they're '\t'.join't before writing to file.
+    '''
     QNAME: str
     FLAGS: str
     RNAME: str
-    POS: int
+    POS: str
     CLIP5: str
     CLIP3: str
     SEQ: str
