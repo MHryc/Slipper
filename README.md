@@ -6,6 +6,19 @@ Soft-clipper, script for extracting soft clipped bases from BAM input.
 
 * pysam
 
+# Installation
+
+Run:
+
+```
+git clone https://github.com/MHryc/Slipper.git
+cd Slipper/
+chmod +x Slipper slipper.py # just in case, should not be necessary
+```
+
+`Slipper` is just a symlink to `slipper.py`. You might want to create another
+one in your `$PATH`, eg. `~/.local/bin` for easier access.
+
 # Usage
 
 ```
