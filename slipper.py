@@ -11,8 +11,8 @@ from dataclasses import dataclass, astuple
 parser = argparse.ArgumentParser(
     prog="Slipper",
     description='''
-Extract soft clipped bases from BAM. For output description see README.md
-''',
+    Extract soft clipped bases from BAM. For output description see README.06/09/2025
+    ''',
     epilog="M.Hryc (2025)"
 )
 parser.add_argument(
@@ -70,7 +70,11 @@ class TsvLine:
 # File writing functions
 #
 
-def basic_write(write_file: str, seq_switch: bool) -> None:
+def basic_write(
+        in_bam: pysam.libcalignmentfile.AlignmentFile,
+        write_file: str,
+        seq_switch: bool
+    ) -> None:
     """
     Basic function for writing the output tsv file, it's used for: buffered
     plain text tsv writing and gzip compressed tsv writing within plain_write()
@@ -87,10 +91,11 @@ def basic_write(write_file: str, seq_switch: bool) -> None:
     # write column headers to output file
     write_file.write(f"QNAME\tFLAGS\tRNAME\tPOS\tCLIP5\tCLIP3\tSEQ\n")
 
-    for read in bamfile.fetch():
+    # iterate over bam lines
+    for read in in_bam.fetch():
 
         # get CIGAR string in tuple format
-        # (4, 7) is the same as 7S
+        # eg. (4, 7) is the same as 7S
         cigar = read.cigartuples
 
         # initialize dataclass with row values, all values must be strings
@@ -107,7 +112,11 @@ def basic_write(write_file: str, seq_switch: bool) -> None:
         # write row into the output tsv file
         write_file.write('\t'.join(astuple(line)) + '\n')
 
-def plain_write(out_name: str, seq_switch: bool) -> None:
+def plain_write(
+        in_bam: pysam.libcalignmentfile.AlignmentFile,
+        out_name: str,
+        seq_switch: bool=False
+        ) -> None:
     """
     Writes the output into a plain text file
 
@@ -118,9 +127,16 @@ def plain_write(out_name: str, seq_switch: bool) -> None:
         None
     """
     with io.open(out_name, 'w', buffering=524_288) as f:
-        basic_write(f, seq_switch)
+        basic_write(in_bam, f, seq_switch)
 
-def gzip_write(out_name: str, seq_switch: bool, gzip_level: int) -> None:
+    return None
+
+def gzip_write(
+        in_bam: pysam.libcalignmentfile.AlignmentFile,
+        out_name: str,
+        gzip_level: int,
+        seq_switch: bool=False
+        ) -> None:
     """
     Writes the output into a gzip compressed plain text file
 
@@ -132,7 +148,9 @@ def gzip_write(out_name: str, seq_switch: bool, gzip_level: int) -> None:
         None
     """
     with gzip.open(out_name, "wt", compresslevel=gzip_level) as f:
-        basic_write(f, seq_switch)
+        basic_write(in_bam, f, seq_switch)
+
+    return None
 
 #
 # Main logic
@@ -148,6 +166,7 @@ if __name__ == "__main__":
     if args.gzip:
         out_name = f"{args.output}.tsv.gz"
         gzip_write(
+            in_bam=bamfile,
             out_name=out_name,
             seq_switch=args.with_sequence,
             gzip_level=args.compress
@@ -156,6 +175,7 @@ if __name__ == "__main__":
     else:
         out_name = f"{args.output}.tsv"
         plain_write(
+            in_bam=bamfile,
             out_name=out_name,
             seq_switch=args.with_sequence
         )
