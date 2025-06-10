@@ -1,6 +1,6 @@
 # Slipper
 
-Soft-clipper, script for extracting soft clipped bases from BAM input.
+Tool for basic soft clip 3' RNA tail analysis.
 
 ## Dependencies
 
@@ -33,6 +33,29 @@ positional arguments:
 
 options:
   -h, --help         show this help message and exit
+
+usage: Slipper extract [-h] -i INPUT -o OUTPUT [-g] [-c LEVEL] [-s]
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Path to the input BAM file (needs an index)
+  -o OUTPUT, --output OUTPUT
+                        Path to the output file (without file extensions)
+  -g, --gzip            Output to gzip compressed file
+  -c LEVEL, --compress-level LEVEL
+                        Gzip compression level (default=2)
+  -s, --with-sequence   Store the whole read sequence (SEQ) in the last column. Default is off (fill with "NA")
+
+usage: Slipper analyse [-h] -i INPUT [--short-output] -o OUTPUT
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Path to the input TSV produced by 'Slipper extract'
+  --short-output        Skip the lines with 'no_tail' in the output
+  -o OUTPUT, --output OUTPUT
+                        Path to the output file (without file extensions)
 ```
 
 # Output formats
