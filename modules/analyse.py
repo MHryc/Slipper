@@ -166,7 +166,7 @@ class ExtractFile:
         Prepare header for printing to file
         '''
         outhdr = '\t'.join(self.header + ["TAIL_LEN", 
-                                          "A", "C", "T", "G",
+                                          "A", "C", "G", "U",
                                           "STRAND", "TYPE",
                                           "U_COUNT"]) + '\n'
 

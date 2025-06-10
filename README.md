@@ -79,8 +79,8 @@ A00805:128:H5W25DRX2:2:2263:18069:16939 419:000110100011        1       22662   
 | TAIL_LEN | length of the 3' soft clip                                                    |
 | A        | number of adenines in the tail                                                |
 | C        | number of citosines in the tail                                               |
-| T        | number of thymines/uracils in the tail                                        |
 | G        | number of guanines in the tail                                                |
+| U        | number of thymines/uracils in the tail                                        |
 | STRAND   | mapping strand, can be 1 or -1 (equivalent to + and -)                        |
 | TYPE     | 3' tail type (no_tail, polyU, polyA, mixed_AU, mixed_GC, other)               |
 | U_COUNT  | number of consecutive 3' terminal uracils                                     |
@@ -88,7 +88,7 @@ A00805:128:H5W25DRX2:2:2263:18069:16939 419:000110100011        1       22662   
 ### Example output
 
 ```
-QNAME   FLAGS   RNAME   POS     CLIP5   CLIP3   SEQ     TAIL_LEN        A       C       T       G       STRAND  TYPE    U_COUNT
+QNAME   FLAGS   RNAME   POS     CLIP5   CLIP3   SEQ     TAIL_LEN        A       C       G       U       STRAND  TYPE    U_COUNT
 A00805:128:H5W25DRX2:1:1104:17137:6809  403:000110010011        1       36600   NA      TACGGGAGGGGTGACAGGAA    NA      20      6       2       10      2       -1      other   0
 A00805:128:H5W25DRX2:1:1237:30680:4554  355:000101100011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
 A00805:128:H5W25DRX2:2:1167:25861:18443 355:000101100011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
