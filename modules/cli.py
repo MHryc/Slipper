@@ -81,16 +81,23 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         type=str,
         help='''
-    Path to the input TSV produced by 'Slipper extract'
-    '''
+        Path to the input TSV produced by 'Slipper extract'
+        '''
     )
-#    analyse.add_argument(
-#        "-o", "--output",
-#        required=True,
-#        type=str,
-#        help='''
-#    Path to the output file (without file extensions)'''
-#    )
+    analyse.add_argument(
+        "--short-output", action="store_true",
+        help='''
+        Skip the lines with 'no_tail' in the output
+        '''
+    )
+    analyse.add_argument(
+        "-o", "--output",
+        required=True,
+        type=str,
+        help='''
+        Path to the output file (without file extensions)
+        '''
+    )
 #    analyse.add_argument(
 #        "-g", "--gzip",
 #        action="store_true",

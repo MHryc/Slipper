@@ -35,9 +35,9 @@ options:
   -h, --help         show this help message and exit
 ```
 
-# Output format
+# Output formats
 
-Output tsv has 7 columns:
+## `Slippter extract`
 
 | name  | description                                                                   |
 | ---   | ---                                                                           |
@@ -47,9 +47,9 @@ Output tsv has 7 columns:
 | POS   | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
 | CLIP5 | 5' soft clipped SEQuence (NA if not present)                                  |
 | CLIP3 | 3' soft clipped SEQuence (NA if not present)                                  |
-| SEQ   | segment SEQuence (read sequence)                                              |
+| SEQ   | segment SEQuence (read sequence, optional, filled with NA if not set          | 
 
-## Example output
+### Example output
 
 ```
 QNAME   FLAGS   RNAME   POS     CLIP5   CLIP3   SEQ
@@ -62,4 +62,40 @@ A00805:128:H5W25DRX2:2:1169:26775:16924 339:000101010011        1       17131   
 A00805:128:H5W25DRX2:1:1106:17463:27101 419:000110100011        1       17611   CTTGATACTATATAAGTCAGTGGAAAAAA   NA      CTTGATACTATATAAGTCAGTGGAAAAAATCGGTGGTGTTGAAGAGCAGCAAGGAGCTGACAGAGCTGATGTTGCTGGGAAGACCCCCAAGTCCCTCTTCT
 A00805:128:H5W25DRX2:2:2263:18611:10207 419:000110100011        1       22662   GTGACAATGGTAAGGGTCAG    NA      GTGACAATGGTAAGGGTCAGGGCCCTCCCTGGGCTGTGCCAGCAGCTTGGAGAACCCACACTCAATGAACGCAGCACTCCACTACCCAGGAAATGCCTTCC
 A00805:128:H5W25DRX2:2:2263:18069:16939 419:000110100011        1       22662   GTGACAATGGTAAGGGTCAG    NA      GTGACAATGGTAAGGGTCAGGGCCCTCCCTGGGCTGTGCCAGCAGCTTGGAGAACCCACACTCAATGAACGCAGCACTCCACTACCCAGGAAATGCCTTCC
+```
+
+## `Slipper analyse`
+
+
+| name     | description                                                                   |
+| ---      | ---                                                                           |
+| QNAME    | Query template NAME                                                           |
+| FLAGS    | bitwise FLAG both as int and 12-bit                                           |
+| RNAME    | Reference sequence NAME                                                       |
+| POS      | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
+| CLIP5    | 5' soft clipped SEQuence (NA if not present)                                  |
+| CLIP3    | 3' soft clipped SEQuence (NA if not present)                                  |
+| SEQ      | segment SEQuence (read sequence, optional, filled with NA if not set          | 
+| TAIL_LEN | length of the 3' soft clip                                                    |
+| A        | number of adenines in the tail                                                |
+| C        | number of citosines in the tail                                               |
+| T        | number of thymines/uracils in the tail                                        |
+| G        | number of guanines in the tail                                                |
+| STRAND   | mapping strand, can be 1 or -1 (equivalent to + and -)                        |
+| TYPE     | 3' tail type (no_tail, polyU, polyA, mixed_AU, mixed_GC, other)               |
+| U_COUNT  | number of consecutive 3' terminal uracils                                     |
+
+### Example output
+
+```
+QNAME   FLAGS   RNAME   POS     CLIP5   CLIP3   SEQ     TAIL_LEN        A       C       T       G       STRAND  TYPE    U_COUNT
+A00805:128:H5W25DRX2:1:1104:17137:6809  403:000110010011        1       36600   NA      TACGGGAGGGGTGACAGGAA    NA      20      6       2       10      2       -1      other   0
+A00805:128:H5W25DRX2:1:1237:30680:4554  355:000101100011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:2:1167:25861:18443 355:000101100011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:1:1237:30680:4554  403:000110010011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:2:1167:25861:18443 403:000110010011        1       389344  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:1:1237:30680:4554  99:000001100011 1       619234  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:2:1167:25861:18443 99:000001100011 1       619234  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:1:1237:30680:4554  147:000010010011        1       619234  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
+A00805:128:H5W25DRX2:2:1167:25861:18443 147:000010010011        1       619234  NA      TTTTTGGAGCACTTTCTTCC    NA      20      2       5       3       10      -1      other   0
 ```

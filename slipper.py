@@ -2,7 +2,7 @@
 
 from modules.cli import build_parser
 from modules.extract import extractor
-from modules.analyse import main_testing
+from modules.analyse import analyser
 
 #
 # Main logic
@@ -22,4 +22,6 @@ if __name__ == "__main__":
                   gzip_level=args.compress_level)
 
     elif args.command == "analyse":
-        main_testing(args.input)
+        analyser(args.input,
+                 out_name=args.output,
+                 briefmode=args.short_output)

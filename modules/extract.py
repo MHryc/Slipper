@@ -115,7 +115,7 @@ def extractor(in_bam: str,
               gzip_switch: bool,
               gzip_level: int) -> None:
     '''
-    Function handling the main logic of 'extractor' subcommand
+    Function for handling the main logic of 'extractor' subcommand
 
     Args:
         in_bam (str): input BAM path
@@ -132,6 +132,7 @@ def extractor(in_bam: str,
     # open input BAM for reading
     bamfile = pysam.AlignmentFile(in_bam, "rb")
 
+    # write to tsv.gz or tsv
     if gzip_switch:
         gzip_write(
             in_bam=bamfile,
