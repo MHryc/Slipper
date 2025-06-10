@@ -84,24 +84,24 @@ def build_parser() -> argparse.ArgumentParser:
     Path to the input TSV produced by 'Slipper extract'
     '''
     )
-    analyse.add_argument(
-        "-o", "--output",
-        required=True,
-        type=str,
-        help='''
-    Path to the output file (without file extensions)'''
-    )
-    analyse.add_argument(
-        "-g", "--gzip",
-        action="store_true",
-        help='''
-    Output to gzip compressed file'''
-    )
-    analyse.add_argument(
-        "-c", "--compress-level", metavar="LEVEL",
-        required=False, default=1, type=int,
-        help='''
-    Gzip compression level (default=1)'''
-    )
+#    analyse.add_argument(
+#        "-o", "--output",
+#        required=True,
+#        type=str,
+#        help='''
+#    Path to the output file (without file extensions)'''
+#    )
+#    analyse.add_argument(
+#        "-g", "--gzip",
+#        action="store_true",
+#        help='''
+#    Output to gzip compressed file'''
+#    )
+#    analyse.add_argument(
+#        "-c", "--compress-level", metavar="LEVEL",
+#        required=False, default=1, type=int,
+#        help='''
+#    Gzip compression level (default=1)'''
+#    )
 
     return parser

@@ -53,7 +53,7 @@ def basic_write(
             read.query_name,
             f"{read.flag}:{read.flag:012b}",
             read.reference_name,
-            str(read.reference_end),
+            str(read.reference_start),
             read.query_sequence[:cigar[0][1]] if cigar[0][0] == 4 else "NA",
             read.query_sequence[:cigar[-1][1]] if cigar[-1][0] == 4 else "NA",
             read.query_sequence if seq_switch else "NA"

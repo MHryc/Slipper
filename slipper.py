@@ -2,6 +2,7 @@
 
 from modules.cli import build_parser
 from modules.extract import extractor
+from modules.analyse import main_testing
 
 #
 # Main logic
@@ -19,3 +20,6 @@ if __name__ == "__main__":
                   seq_switch=args.with_sequence,
                   gzip_switch=args.gzip,
                   gzip_level=args.compress_level)
+
+    elif args.command == "analyse":
+        main_testing(args.input)

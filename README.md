@@ -22,22 +22,17 @@ one in your `$PATH`, eg. `~/.local/bin` for easier access.
 # Usage
 
 ```
-usage: Slipper [-h] -i INPUT -o OUTPUT [-g] [-c LEVEL] [-s]
+usage: Slipper [-h] {extract,analyse} ...
 
-Extract soft clipped bases from BAM. For output description see README.md
+Extract soft clipped bases from BAM. For output description see repo's README.md
+
+positional arguments:
+  {extract,analyse}
+    extract          Extract soft clipped bases from BAM
+    analyse          Analyse the output of 'Slipper extract'
 
 options:
-  -h, --help            show this help message and exit
-  -i INPUT, --input INPUT
-                        Path to the input BAM file (needs an index)
-  -o OUTPUT, --output OUTPUT
-                        Path to the output file (without file extensions)
-  -g, --gzip            Output to gzip compressed file
-  -c LEVEL, --compress LEVEL
-                        Gzip compression level (default=2)
-  -s, --with-sequence   Store the whole read sequence (SEQ) in the last column. Default is off (fill with "NA")
-
-M.Hryc (2025)
+  -h, --help         show this help message and exit
 ```
 
 # Output format
