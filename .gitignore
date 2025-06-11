@@ -2,15 +2,17 @@
 
 example.sh
 
-test_01/
 *.tsv
 *.tsv.gz
 *.bam*
 *.pl
 *.txt
 *.txt.gz
+
 rust/
 data/
+test_01/
+docs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
