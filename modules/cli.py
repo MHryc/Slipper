@@ -24,9 +24,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers = parser.add_subparsers(dest='command')
 
-    #
-    # the 'extract' subcommand
-    #
+    # === the 'extract' subcommand ===
 
     extract = subparsers.add_parser(
         "extract", help='''
@@ -36,15 +34,13 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument(
         "-i", "--input",
         required=True,
-        type=str,
-        help='''
+        type=str, help='''
     Path to the input BAM file (needs an index)'''
     )
     extract.add_argument(
         "-o", "--output",
         required=True,
-        type=str,
-        help='''
+        type=str, help='''
     Path to the output file (without file extensions)'''
     )
     extract.add_argument(
@@ -67,9 +63,7 @@ def build_parser() -> argparse.ArgumentParser:
     (fill with "NA")'''
     )
 
-    #
-    # the 'analyse' subcommand
-    #
+    # === the 'analyse' subcommand
 
     analyse = subparsers.add_parser(
         "analyse", help='''
@@ -79,8 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
     analyse.add_argument(
         "-i", "--input",
         required=True,
-        type=str,
-        help='''
+        type=str, help='''
         Path to the input TSV produced by 'Slipper extract'
         '''
     )
@@ -93,22 +86,31 @@ def build_parser() -> argparse.ArgumentParser:
     analyse.add_argument(
         "-o", "--output",
         required=True,
-        type=str,
-        help='''
+        type=str, help='''
         Path to the output file (without file extensions)
         '''
     )
-#    analyse.add_argument(
-#        "-g", "--gzip",
-#        action="store_true",
-#        help='''
-#    Output to gzip compressed file'''
-#    )
-#    analyse.add_argument(
-#        "-c", "--compress-level", metavar="LEVEL",
-#        required=False, default=1, type=int,
-#        help='''
-#    Gzip compression level (default=1)'''
-#    )
+
+    # === the 'plot' subcommand ===
+
+    plot = subparsers.add_parser(
+        "plot", help='''
+        Make plots from 'Slipper analyse' output
+        '''
+    )
+    plot.add_argument(
+        "-i", "--input",
+        required=True, type=str, 
+        nargs='+', help='''
+        Path to the input TSVs produced by 'Slipper analyse'
+        '''
+    )
+    plot.add_argument(
+        "-o", "--outdir",
+        default="slipper_plots",
+        type=str, help='''
+        Path to directory, where plots will be saved. Defaults to slipper_plots/
+        '''
+    )
 
     return parser

@@ -58,6 +58,19 @@ options:
                         Path to the output file (without file extensions)
 ```
 
+# Example run
+
+```
+Slipper extract -g -i reads.bam -o soft_clips
+Slipper analyse -i tails.tsv.gz --short-output -o tails
+
+```
+
+# Output plots
+
+![linear_scale](pics/lin_test.png)
+![linear_scale](pics/log_test.png)
+
 # Output formats
 
 ## `Slippter extract`

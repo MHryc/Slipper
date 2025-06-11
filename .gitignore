@@ -2,6 +2,7 @@
 
 example.sh
 
+test_01/
 *.tsv
 *.tsv.gz
 *.bam*

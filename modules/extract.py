@@ -1,4 +1,4 @@
-import io, gzip
+import io, gzip, tempfile, shutil
 import pysam
 from dataclasses import dataclass, astuple
 

@@ -112,7 +112,7 @@ class ExtractFile:
 
     def get_strand(self):
         '''
-        Get mapping strand from SAM flags. Flags are stored in `int:12-bit`
+        Get mapping strand from SAM flags. Flags are stored as `int:12-bit`
         format, eg. 123:000001111011.
 
         Outputs the Entrez strand convention, i.e. + = 1, - = -1
@@ -128,6 +128,10 @@ class ExtractFile:
 
         Args:
             base_counts (tuple): (A, C, G, T)
+
+        Returns:
+            str: tail type, one of: no_tail, polyU, polyA, mixed_AU, mixed_GC,
+                other
         '''
         base_counts = self.count_bases()
         total = sum(base_counts)
