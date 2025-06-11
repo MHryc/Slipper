@@ -70,15 +70,19 @@ Slipper analyse -i tails.tsv.gz --short-output -o tails
 
 # Create plots from tails.tsv.gz data, save to plots/ directory
 Slipper plot -i tails.tsv.gz -o plots
+
+# You can pass multiple files to compare, for eg. using a Bash glop to pass
+# tails_00.tsv.gz to tails_99.tsv.gz
+Slipper plot -i tails_??.tsv.gz -o plots
 ```
 
 ## Output plots
 
-Linear Y scale plot
+### Linear Y scale plot
 
 ![linear_scale](pics/lin_test.png)
 
-Base 10 Log Y scale plot
+### Base 10 Log Y scale plot
 
 ![linear_scale](pics/log_test.png)
 
