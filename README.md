@@ -61,14 +61,25 @@ options:
 # Example run
 
 ```
+# Extract soft clipped bases from BAM, save to soft_clips.tsv.gz
 Slipper extract -g -i reads.bam -o soft_clips
+
+# Analyse extracted soft clips, omit rows assigned the "no_tail" tail type
+# (--short-output). Output to tails.tsv.gz
 Slipper analyse -i tails.tsv.gz --short-output -o tails
 
+# Create plots from tails.tsv.gz data, save to plots/ directory
+Slipper plot -i tails.tsv.gz -o plots
 ```
 
-# Output plots
+## Output plots
+
+Linear Y scale plot
 
 ![linear_scale](pics/lin_test.png)
+
+Base 10 Log Y scale plot
+
 ![linear_scale](pics/log_test.png)
 
 # Output formats
