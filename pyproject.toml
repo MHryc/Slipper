@@ -1,0 +1,19 @@
+[project]
+name = "Slipper"
+version = "0.1.0"
+description = "Tool for basic RNA 3' end analysis and plot making"
+authors = [{ name = "M.Hryc", email = "machry@st.amu.edu.pl" }]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = [
+    "pysam>=0.22.1",
+    "numpy>=2.2.4",
+    "matplotlib-base>=3.10.1"
+]
+
+[project.scripts]
+Slipper = "Slipper.slipper:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

@@ -84,11 +84,11 @@ Slipper plot -i tails_??.tsv.gz -o plots
 
 ### Linear Y scale plot
 
-![linear_scale](pics/lin_test.png)
+![linear_scale](.pics/lin_test.png)
 
 ### Base 10 Log Y scale plot
 
-![linear_scale](pics/log_test.png)
+![linear_scale](.pics/log_test.png)
 
 # Output formats
 
