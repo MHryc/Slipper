@@ -13,6 +13,7 @@ rust/
 data/
 test_01/*
 docs/*
+trash/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

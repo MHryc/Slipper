@@ -1,10 +1,14 @@
 # Slipper
 
-Tool for basic soft clip 3' RNA tail analysis.
+Tool for basic 3' RNA tail analysis.
+
+For code documentation go to [documentation](https://cyhr.platinum.edu.pl/docs/Slipper/)
 
 ## Dependencies
 
 * pysam
+* matplotlib
+* numpy
 
 # Installation
 
