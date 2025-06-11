@@ -11,8 +11,8 @@ example.sh
 
 rust/
 data/
-test_01/
-docs/
+test_01/*
+docs/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
