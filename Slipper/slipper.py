@@ -5,6 +5,7 @@ from modules.extract import extractor
 from modules.analyse import analyser
 from modules.plot import ploter
 
+
 # === Main logic ===
 
 def main() -> None:

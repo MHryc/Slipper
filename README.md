@@ -94,15 +94,15 @@ Slipper plot -i tails_??.tsv.gz -o plots
 
 ## `Slippter extract`
 
-| name  | description                                                                   |
-| ---   | ---                                                                           |
-| QNAME | Query template NAME                                                           |
-| FLAGS | bitwise FLAG both as int and 12-bit                                           |
-| RNAME | Reference sequence NAME                                                       |
-| POS   | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
-| CLIP5 | 5' soft clipped SEQuence (NA if not present)                                  |
-| CLIP3 | 3' soft clipped SEQuence (NA if not present)                                  |
-| SEQ   | segment SEQuence (read sequence, optional, filled with NA if not set          | 
+| ordinal | name  | description                                                                   |
+| ---     | ---   | ---                                                                           |
+| 1       | QNAME | Query template NAME                                                           |
+| 2       | FLAGS | bitwise FLAG both as int and 12-bit                                           |
+| 3       | RNAME | Reference sequence NAME                                                       |
+| 4       | POS   | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
+| 5       | CLIP5 | 5' soft clipped SEQuence (NA if not present)                                  |
+| 6       | CLIP3 | 3' soft clipped SEQuence (NA if not present)                                  |
+| 7       | SEQ   | segment SEQuence (read sequence, optional, filled with NA if not set          | 
 
 ### Example output
 
@@ -122,23 +122,23 @@ A00805:128:H5W25DRX2:2:2263:18069:16939 419:000110100011        1       22662   
 ## `Slipper analyse`
 
 
-| name     | description                                                                   |
-| ---      | ---                                                                           |
-| QNAME    | Query template NAME                                                           |
-| FLAGS    | bitwise FLAG both as int and 12-bit                                           |
-| RNAME    | Reference sequence NAME                                                       |
-| POS      | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
-| CLIP5    | 5' soft clipped SEQuence (NA if not present)                                  |
-| CLIP3    | 3' soft clipped SEQuence (NA if not present)                                  |
-| SEQ      | segment SEQuence (read sequence, optional, filled with NA if not set          | 
-| TAIL_LEN | length of the 3' soft clip                                                    |
-| A        | number of adenines in the tail                                                |
-| C        | number of citosines in the tail                                               |
-| G        | number of guanines in the tail                                                |
-| U        | number of thymines/uracils in the tail                                        |
-| STRAND   | mapping strand, can be 1 or -1 (equivalent to + and -)                        |
-| TYPE     | 3' tail type (no_tail, polyU, polyA, mixed_AU, mixed_GC, other)               |
-| U_COUNT  | number of consecutive 3' terminal uracils                                     |
+| ordinal | name     | description |
+| ---     | ---      | ---                                                                           |
+|  1      | QNAME    | Query template NAME                                                           |
+|  2      | FLAGS    | bitwise FLAG both as int and 12-bit                                           |
+|  3      | RNAME    | Reference sequence NAME                                                       |
+|  4      | POS      | 0-based leftmost tail POSition, i.e. the 1st base AFTER the last aligned base |
+|  5      | CLIP5    | 5' soft clipped SEQuence (NA if not present)                                  |
+|  6      | CLIP3    | 3' soft clipped SEQuence (NA if not present)                                  |
+|  7      | SEQ      | segment SEQuence (read sequence, optional, filled with NA if not set          | 
+|  8      | TAIL_LEN | length of the 3' soft clip                                                    |
+|  9      | A        | number of adenines in the tail                                                |
+| 10      | C        | number of citosines in the tail                                               |
+| 11      | G        | number of guanines in the tail                                                |
+| 12      | U        | number of thymines/uracils in the tail                                        |
+| 13      | STRAND   | mapping strand, can be 1 or -1 (equivalent to + and -)                        |
+| 14      | TYPE     | 3' tail type (no_tail, polyU, polyA, mixed_AU, mixed_GC, other)               |
+| 15      | U_COUNT  | number of consecutive 3' terminal uracils                                     |
 
 ### Example output
 
