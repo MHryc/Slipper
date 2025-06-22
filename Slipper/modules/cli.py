@@ -113,4 +113,12 @@ def build_parser() -> argparse.ArgumentParser:
         '''
     )
 
+    # === the 'types' subcommand
+
+    types = subparsers.add_parser(
+        "types", help='''
+        Print type codes used in Slipper
+        '''
+    )
+
     return parser

@@ -4,6 +4,7 @@ from modules.cli import build_parser
 from modules.extract import extractor
 from modules.analyse import analyser
 from modules.plot import ploter
+from modules.typer import typer
 
 
 # === Main logic ===
@@ -32,6 +33,9 @@ def main() -> None:
     elif args.command == "plot":
         ploter(infiles=args.input,
                out_dir=args.outdir)
+    
+    elif args.command == "types":
+        typer()
 
     return None
 
