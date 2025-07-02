@@ -6,9 +6,13 @@ For code documentation go to [documentation](https://cyhr.platinum.edu.pl/docs/S
 
 ## Dependencies
 
-* pysam
-* matplotlib
-* numpy
+- pysam (=0.23.3=py312h47d5410_0)
+- numpy (=2.3.1=py312h6cf2f7f_0)
+- matplotlib (=3.10.3=py312h7900ff3_0)
+- matplotlib-base (=3.10.3=py312hd3ec401_0)
+
+Minimal conda/mamba environment I need to run Slipper is described in
+`environment.yml`.
 
 # Installation
 

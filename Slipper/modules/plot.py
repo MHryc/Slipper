@@ -1,6 +1,7 @@
 import gzip, os
 import matplotlib.pyplot as plt
 import numpy as np
+import os.path
 
 '''
 plot.py, handles logic of the 'plot' subcommand
@@ -21,7 +22,10 @@ class AnalyseFile:
         self.row_count = 0
 
         # initiate dict for storing type counts per tail length
-        self.type_per_len = {0: np.zeros((6,), dtype=int)}
+        # bins: 0-20, 21-40, 41-60, 61-80, 81-100, 101+
+        self.type_per_len = {
+            key: np.zeros((6,), dtype=int) for key in range(20, 121, 20)
+        }
         
         # used for easier to understand array indexing
         self.type_codes = {"no_tail": 0, "polyU": 1, 
@@ -117,6 +121,8 @@ class AnalyseFile:
             case "other":
                 self.type_count_arr[5] += 1
 
+        return None
+
     def tail_perc(self) -> np.ndarray:
         '''
         Calculate the percentage of reads with each tail type
@@ -135,26 +141,39 @@ class AnalyseFile:
         outside of __next__()
         '''
         tail_len = int(self.line[7])
+
+        if tail_len <= 20:
+            tail_bin = 20
+        elif tail_len <= 40:
+            tail_bin = 40
+        elif tail_len <= 60:
+            tail_bin = 60 
+        elif tail_len <= 80:
+            tail_bin = 80
+        elif tail_len <= 100:
+            tail_bin = 100
+        elif tail_len > 100:
+            tail_bin = 120
+
         tail_type = self.line[13]
 
-        if tail_len not in self.type_per_len:
-            self.type_per_len[tail_len] = np.zeros((6,), dtype=int)
-
-        self.type_per_len[tail_len][self.type_codes[tail_type]] += 1
+        self.type_per_len[tail_bin][self.type_codes[tail_type]] += 1
 
         return None
 
-    def type_len_counts(self, type: int):
+    def type_len_perc(self):
         '''
         Transform type_per_len dictionary into X Y arrays that can be used for
         ploting
-        '''
-        idxs = np.arange
-        X, Y = (np.array(list(self.type_per_len.keys())),
-                np.array(list(self.type_per_len.values())))
-        Y = Y[:, type]
 
-        return X, Y
+        Returns:
+            np.ndarray: 2D array, each row represents a tail type, each column
+                is the percent of reads with this tail type for each tail length
+                bin
+        '''
+        Y = (np.array(list(self.type_per_len.values())) / self.row_count).transpose()
+
+        return Y
 
 def plot(filenames: list[str, ...], values: np.ndarray, out_dir: str) -> None:
     '''
@@ -198,12 +217,13 @@ def plot(filenames: list[str, ...], values: np.ndarray, out_dir: str) -> None:
     plt.xlabel("Tested groups")
     plt.ylabel("Log(Tail type %)")
     plt.semilogy()
-    plt.xticks(filenames, rotation = 45)
+    ticks = [filename.split("_analyse.tsv.gz")[0] for filename in filenames]
+    plt.xticks(range(len(ticks)), ticks, rotation = 45)
 
     plt.legend(loc='upper left', bbox_to_anchor=(1.0, 1.0))
     plt.tight_layout()  # helps avoid clipping
  
-    plt.savefig(out_dir + "plottest_log.png", dpi=300)
+    plt.savefig(out_dir + "log_tail_content.png", dpi=300)
 
     plt.clf()
 
@@ -218,32 +238,70 @@ def plot(filenames: list[str, ...], values: np.ndarray, out_dir: str) -> None:
     plt.title("Tail type percentage")
     plt.xlabel("Tested groups")
     plt.ylabel("Tail type %")
-    plt.xticks(filenames, rotation = 45)
+    plt.xticks(range(len(ticks)), ticks, rotation = 45)
 
     plt.legend(loc='upper left', bbox_to_anchor=(1.0, 1.0))
     plt.tight_layout()  # helps avoid clipping
 
-    plt.savefig(out_dir + "plottest.png", dpi=300)
+    plt.savefig(out_dir + "lin_tail_content.png", dpi=300)
+
+    plt.clf()
 
     return None
 
-def plot_type_len(X: np.ndarray, Y: np.ndarray, total: int) -> None:
+def plot_type_per_len(Ys: np.ndarray, out_dir: str) -> None:
 
-    plt.title("Type % per tail length")
-    plt.plot(X, Y / total * 100)
-    plt.xlabel("tail length (nt)")
+    # === linear y axis scale ===
+
+    plot_name = out_dir.split('/')[-1].split("_analyse")[0]
+
+    for Y in Ys:
+        plt.plot(Y * 100)
+
+    plt.title(f"Types per tail length in {plot_name}")
+    plt.xlabel("tail length bins")
+    plt.xticks([*range(6)], ["<21nt", "<41nt", "<61nt", "<81nt", "<101nt", ">100nt"])
     plt.ylabel("% of total")
-    plt.legend(loc='upper left', bbox_to_anchor=(1.0, 1.0))
+    plt.grid()
+    plt.legend(
+        ["no_tail", "polyU", "polyA", "mixed_AU", "mixed_GC", "other"],
+        loc='upper left', bbox_to_anchor=(1.0, 1.0)
+    )
     plt.tight_layout()
 
-    plt.show()
+    plt.savefig(out_dir + "_tail_content_per_length.png", dpi=300)
+
+    plt.clf()
+
+    # === zoomed y axis ===
+
+    for Y in Ys:
+        plt.plot(Y * 100)
+
+    plt.title(f"Types per tail length in {plot_name}")
+    plt.xlabel("tail length bins")
+    plt.xticks([*range(6)], ["<21nt", "<41nt", "<61nt", "<81nt", "<101nt", ">100nt"])
+    plt.ylabel("% of total")
+    plt.grid()
+    plt.ylim([0, 5])
+    plt.legend(
+        ["no_tail", "polyU", "polyA", "mixed_AU", "mixed_GC", "other"],
+        loc='upper left', bbox_to_anchor=(1.0, 1.0)
+    )
+    plt.tight_layout()
+
+    plt.savefig(out_dir + "_zoom_tail_content_per_length.png", dpi=300)
+
+    plt.clf()
 
     return None
 
 def ploter(infiles: list[str, ...], out_dir: str) -> None:
     '''
-    Plot figures for input files generated by Slipper analyse. For now only
-    tail type percent per input file is available
+    This is the main() of plot.py module.
+
+    Plot figures for input files generated by Slipper analyse. For now only tail
+    type percent per input file is available.
 
     Args:
         infiles (list[str, ...]): list of filenames or paths to tsv.gz files
@@ -278,20 +336,14 @@ def ploter(infiles: list[str, ...], out_dir: str) -> None:
         
         file[1].close()
 
+        plot_type_per_len(Ys=file[1].type_len_perc(),
+                          out_dir=out_dir + os.path.basename(file[0]).split('.')[0])
+
     # AnalyseFile.tail_perc() calculates the relative frequency of each tail
     # type per input file
     percs = np.vstack([file[1].tail_perc() for file in files.values()]).transpose()
-
-    for file in files.values():
-        for i in range(6):
-            #print(file[1].type_per_len)
-            print(file[1].type_len_counts(i))
 
     # run the main plotting function
     plot(filenames=filenames,
          values=percs,
          out_dir=out_dir)
-    
-    plot_type_len(X=files[0][1].type_len_counts(2)[0], 
-                  Y=files[0][1].type_len_counts(2)[1], 
-                  total=files[0][1].row_count)
